@@ -134,4 +134,6 @@ Contribuindo
 Licença
 -------
 
-Este repositório não inclui uma licença. Adicione uma (`MIT`, `Apache-2.0`, etc.) se desejar tornar o projeto reutilizável.
+Este projeto está disponível sob a Licença MIT. Consulte o arquivo `LICENSE` na raiz do repositório para o texto completo da licença.
+
+SPDX: `MIT`
