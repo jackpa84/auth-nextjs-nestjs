@@ -8,25 +8,40 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
-  // Validation
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.getHttpAdapter().get('/health', (req, res) => {
+    res.status(200).json({ 
+      status: 'OK', 
+      timestamp: new Date().toISOString(),
+      service: 'backend'
+    });
+  });
 
-  // CORS
+  app.useGlobalPipes(new ValidationPipe({ 
+    whitelist: true, 
+    transform: true 
+  }));
+
   app.enableCors({
-    origin: configService.get('FRONTEND_URL'),
+    origin: configService.get('FRONTEND_URL') || 'http://localhost:3000',
     credentials: true,
   });
 
-  // Swagger Documentation
   const config = new DocumentBuilder()
     .setTitle('Modern API')
-    .setDescription('The Modern Full-Stack API description')
+    .setDescription('Modern Full-Stack API')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
+  
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  await app.listen(configService.get('PORT') || 3001);
+  const port = configService.get('PORT') || 3001;
+  await app.listen(port);
+  console.log(`🚀 Backend running on: http://localhost:${port}`);
 }
-bootstrap();
+
+bootstrap().catch(error => {
+  console.error('Bootstrap error:', error);
+  process.exit(1);
+});

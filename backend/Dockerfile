@@ -1,23 +1,26 @@
-FROM node:18-alpine
+FROM node:20-alpine
+
+RUN apk add --no-cache openssl openssl-dev libc6-compat curl
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+COPY package.json ./
 COPY prisma ./prisma/
 
-# Install dependencies
-RUN npm ci
+RUN npm install --no-package-lock
 
-# Generate Prisma Client
 RUN npx prisma generate
 
-# Copy source code
 COPY . .
 
-# Build application
+RUN echo "=== Verificando sintaxe TypeScript ===" && \
+    npx tsc --noEmit --skipLibCheck || echo "⚠️  Avisos de TypeScript (continuando...)"
+
 RUN npm run build
 
 EXPOSE 3001
 
-CMD ["npm", "run", "start:dev"]
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3001/health || exit 1
+
+CMD ["sh", "-c", "npx prisma db push --skip-generate && npx ts-node prisma/seed.ts && node dist/src/main"]

@@ -54,7 +54,7 @@ export class AuthService {
     };
   }
 
-  private async generateTokens(userId: string, email: string) {
+  private async generateTokens(userId: number, email: string) {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         { sub: userId, email },
@@ -66,7 +66,6 @@ export class AuthService {
       ),
     ]);
 
-    // Save refresh token to database
     await this.prisma.refreshToken.create({
       data: {
         token: refreshToken,
@@ -87,7 +86,14 @@ export class AuthService {
   async refreshTokens(refreshToken: string) {
     const token = await this.prisma.refreshToken.findUnique({
       where: { token: refreshToken },
-      include: { user: true },
+      include: { 
+        user: {
+          select: {
+            id: true,
+            email: true,
+          },
+        },
+      },
     });
 
     if (!token || token.expiresAt < new Date()) {

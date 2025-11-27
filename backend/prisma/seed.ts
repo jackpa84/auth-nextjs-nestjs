@@ -4,46 +4,49 @@ import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create demo user
+  console.log('🌱 Starting seed...');
+
+  
   const hashedPassword = await bcrypt.hash('password123', 12);
   
-  const user = await prisma.user.upsert({
-    where: { email: 'demo@example.com' },
+  const user1 = await prisma.user.upsert({
+    where: { email: 'user@example.com' },
     update: {},
     create: {
-      email: 'demo@example.com',
-      name: 'Demo User',
+      email: 'user@example.com',
       password: hashedPassword,
+      name: 'John Doe',
     },
   });
 
-  // Create sample posts
+  console.log('✅ User created:', user1.email);
+
+  
   await prisma.post.createMany({
     data: [
       {
-        title: 'Welcome to Modern Full-Stack App',
-        content: 'This is a sample post demonstrating our modern full-stack application.',
+        title: 'First Post',
+        content: 'This is the first post content',
         published: true,
-        authorId: user.id,
+        authorId: user1.id,
       },
       {
-        title: 'Getting Started with NestJS and NextJS',
-        content: 'Learn how to build modern applications with these powerful frameworks.',
+        title: 'Second Post',
+        content: 'This is the second post content',
         published: true,
-        authorId: user.id,
+        authorId: user1.id,
       },
     ],
+    skipDuplicates: true,
   });
 
-  console.log('Database seeded successfully!');
-  console.log('Demo user created:');
-  console.log('Email: demo@example.com');
-  console.log('Password: password123');
+  console.log('✅ Posts created');
+  console.log('🎉 Seed completed!');
 }
 
 main()
   .catch((e) => {
-    console.error('Error seeding database:', e);
+    console.error('❌ Seed error:', e);
     process.exit(1);
   })
   .finally(async () => {

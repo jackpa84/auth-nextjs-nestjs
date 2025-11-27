@@ -1,13 +1,9 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { Providers } from './providers';
 import './globals.css';
+import ReactQueryProvider from '@/providers/react-query-provider';
 
-const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'Modern Full-Stack App',
-  description: 'A modern full-stack application with NextJS and NestJS',
+export const metadata = {
+  title: 'Modern Dashboard',
+  description: 'Modern dashboard with dark theme',
 };
 
 export default function RootLayout({
@@ -16,9 +12,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Providers>{children}</Providers>
+    <html lang="pt-BR" className="dark">
+      <body className="dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
+        <ReactQueryProvider>
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );

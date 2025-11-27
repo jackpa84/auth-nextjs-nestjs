@@ -1,53 +1,72 @@
-'use client';
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-interface Activity {
-  id: string;
-  action: string;
-  timestamp: string;
-  user: string;
-}
+const activities = [
+  {
+    user: 'Olivia Martin',
+    email: 'olivia.martin@email.com',
+    action: 'placed an order',
+    time: '15 min ago',
+    amount: '$1,999.00'
+  },
+  {
+    user: 'Jackson Lee',
+    email: 'jackson.lee@email.com',
+    action: 'subscribed to premium',
+    time: '30 min ago',
+    amount: '$39.00'
+  },
+  {
+    user: 'Isabella Nguyen',
+    email: 'isabella.nguyen@email.com',
+    action: 'cancelled subscription',
+    time: '45 min ago',
+    amount: '$299.00'
+  },
+  {
+    user: 'William Kim',
+    email: 'will@email.com',
+    action: 'made a payment',
+    time: '1 hour ago',
+    amount: '$99.00'
+  },
+  {
+    user: 'Sofia Davis',
+    email: 'sofia.davis@email.com',
+    action: 'created an account',
+    time: '2 hours ago',
+    amount: '$0.00'
+  }
+];
 
-interface RecentActivityProps {
-  activities?: Activity[];
-}
-
-export function RecentActivity({ activities = [] }: RecentActivityProps) {
-  const defaultActivities: Activity[] = [
-    {
-      id: '1',
-      action: 'Usuário fez login',
-      timestamp: '2024-01-15 10:30',
-      user: 'demo@example.com'
-    },
-    {
-      id: '2', 
-      action: 'Novo post criado',
-      timestamp: '2024-01-15 09:15',
-      user: 'admin@example.com'
-    }
-  ];
-
-  const displayActivities = activities.length > 0 ? activities : defaultActivities;
-
+export function RecentActivity() {
   return (
-    <Card className="border border-gray-200 dark:border-gray-700">
+    <Card className="hover:scale-[1.01] transition-all duration-300">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
-          Atividade Recente
-        </CardTitle>
+        <CardTitle>Recent Activity</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {displayActivities.map((activity) => (
-            <div key={activity.id} className="flex items-start space-x-3">
-              <div className="flex-1 space-y-1">
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+          {activities.map((activity, index) => (
+            <div key={index} className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-700/30 transition-colors duration-200">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                  {activity.user.charAt(0)}
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-white truncate">
+                  {activity.user}
+                </p>
+                <p className="text-sm text-gray-400 truncate">
                   {activity.action}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {activity.timestamp} • {activity.user}
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-medium text-white">
+                  {activity.amount}
+                </p>
+                <p className="text-xs text-gray-400">
+                  {activity.time}
                 </p>
               </div>
             </div>

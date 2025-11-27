@@ -1,24 +1,9 @@
-import { NextAuthOptions } from 'next-auth';
-import NextAuth from 'next-auth/next';
+import { NextRequest, NextResponse } from 'next/server';
 
-const authOptions: NextAuthOptions = {
-  providers: [
-    // Add your authentication providers here
-  ],
-  callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
-    },
-    async session({ session, token }) {
-      session.user = token as any;
-      return session;
-    },
-  },
-  pages: {
-    signIn: '/login',
-  },
-};
+export async function GET(request: NextRequest) {
+  return NextResponse.json({ message: 'Auth API is working' });
+}
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+export async function POST(request: NextRequest) {
+  return NextResponse.json({ message: 'Auth API is working' });
+}

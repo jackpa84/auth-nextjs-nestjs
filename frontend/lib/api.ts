@@ -2,13 +2,13 @@ import axios from 'axios';
 import { AuthService } from './auth';
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http:
 });
 
-// Interceptor para adicionar token APENAS se existir
+
 api.interceptors.request.use(
   (config) => {
-    // Não adiciona token para rotas públicas
+    
     const publicRoutes = ['/auth/login', '/auth/register', '/auth/refresh'];
     const isPublicRoute = publicRoutes.some(route => config.url?.includes(route));
     
@@ -26,7 +26,7 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor de resposta para tratar tokens expirados
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {

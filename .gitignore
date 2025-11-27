@@ -1,36 +1,22 @@
-# ============================================
-# DEPENDÊNCIES E BUILD
-# ============================================
-
-# Node.js dependencies
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Build outputs
 dist/
 build/
 .next/
 out/
 .nuxt/
 
-# TypeScript
 *.tsbuildinfo
 
-
-# Docker volumes (não versionar dados)
 **/postgres_data/
 **/redis_data/
 **/mysql_data/
 **/mongo_data/
 
-# ============================================
-# IDE E EDITORES
-# ============================================
-
-# VS Code
 .vscode/
 !.vscode/extensions.json
 !.vscode/settings.json
@@ -38,135 +24,75 @@ out/
 !.vscode/launch.json
 !.vscode/profile.default.json
 
-# IntelliJ
 .idea/
 *.iws
 *.iml
 *.ipr
 
-# Eclipse
 .settings/
 .project
 .classpath
 bin/
 
-# NetBeans
 nbproject/
 nb-configuration.xml
 
-# ============================================
-# SISTEMA OPERACIONAL
-# ============================================
-
-# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
 
-# Windows
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# ============================================
-# LOGS E CACHE
-# ============================================
-
-# Logs
 logs/
 *.log
 
-# Cache
 .cache/
 .parcel-cache/
 .eslintcache
 
-# Runtime data
 pids/
 *.pid
 *.seed
 *.pid.lock
 
-# Coverage directory used by tools like istanbul
 coverage/
 *.lcov
 
-# nyc test coverage
 .nyc_output/
 
-# ============================================
-# FRAMEWORKS ESPECÍFICOS
-# ============================================
-
-# Next.js
 .next/
 
-# NestJS
 dist/
 
-
-# ============================================
-# TESTES E QUALIDADE DE CÓDIGO
-# ============================================
-
-# Jest
 jest-coverage/
 
-# Cypress
 cypress/videos/
 cypress/screenshots/
 
-# Playwright
 playwright-report/
 test-results/
 
-# ============================================
-# BACKEND (NestJS)
-# ============================================
-
-# NestJS production build
 backend/dist/
 
-# ============================================
-# FRONTEND (Next.js)
-# ============================================
-
-# Next.js
 frontend/.next/
 frontend/out/
 
-# ============================================
-# BANCOS DE DADOS
-# ============================================
-
-# SQLite
 *.sqlite
 *.sqlite3
 
-# MongoDB
 *.mongodb
 
-# ============================================
-# UPLOADS E ARQUIVOS TEMPORÁRIOS
-# ============================================
-
-# Uploads
 uploads/
 tmp/
 temp/
 
-# ============================================
-# VERSIONAMENTO E DEPLOY
-# ============================================
-
-# Git
 .git/
 
-# GitHub
 .github/workflows/*.yml
 !.github/workflows/ci.yml.example
 
-# Deployment
 .vercel/
 .netlify/
 .railway/
